@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.32.0 (765fde254)
+  labels:
+    io.kompose.service: t2donlineconvert
+  name: t2donlineconvert
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: t2donlineconvert
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.32.0 (765fde254)
+      labels:
+        io.kompose.network/t2d-online-convert-default: "true"
+        io.kompose.service: t2donlineconvert
+    spec:
+      containers:
+        - env:
+            - name: NODE_ENV
+              value: production
+          image: chrisagrams/t2donlineconvert
+          name: t2donlineconvert
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: t2donlineconvert
+spec:
+  selector:
+    io.kompose.service: t2donlineconvert
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
