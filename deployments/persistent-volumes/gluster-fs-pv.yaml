@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: gv0-glusterfs-pv
+spec:
+  capacity:
+    storage: 65Gi
+  accessModes:
+    - ReadWriteMany
+  glusterfs:
+    endpoints: node-5,node-6,node-7
+    path: /mnt/gv0
+    readOnly: false
