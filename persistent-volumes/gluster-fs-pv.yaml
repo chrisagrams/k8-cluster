@@ -11,3 +11,16 @@ spec:
     endpoints: node-5,node-6,node-7
     path: /mnt/gv0
     readOnly: false
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gv0-glusterfs-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 65Gi
+  storageClassName: ""
+  volumeName: gv0-glusterfs-pv
