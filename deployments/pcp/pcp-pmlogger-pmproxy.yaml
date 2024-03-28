@@ -27,7 +27,6 @@ spec:
   ports:
   - port: 44322
     targetPort: 44322
-  type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -46,3 +45,14 @@ spec:
       containers:
       - name: pcp-redis
         image: redis
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pcp-redis
+spec:
+  selector:
+    app: pcp-redis
+  ports:
+  - port: 6379
+    targetPort: 6379
