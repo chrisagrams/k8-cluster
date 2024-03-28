@@ -7,6 +7,6 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 1G
+      storage: 1Gi
   storageClassName: ""
   volumeName: gv0-glusterfs-pv
