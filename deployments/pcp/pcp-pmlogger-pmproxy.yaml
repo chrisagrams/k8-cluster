@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pcp-pmlogger-pmproxy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pcp-pmlogger-pmproxy
+  template:
+    metadata:
+      labels:
+        app: pcp-pmlogger-pmproxy
+    spec:
+      containers:
+      - name: pcp-pmlogger-pmproxy
+        image: chrisagrams/pcp-pmlogger-pmproxy
+        args: ["192.168.203.0/24"]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pcp-redis
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pcp-redis
+  template:
+    metadata:
+      labels:
+        app: pcp-redis
+    spec:
+      containers:
+      - name: pcp-redis
+        image: redis

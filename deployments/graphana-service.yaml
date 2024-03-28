@@ -5,7 +5,7 @@ metadata:
   labels:
     app: grafana
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: grafana
@@ -20,10 +20,15 @@ spec:
         ports:
         - containerPort: 3000
         env:
-        - name: GF_SECURITY_ADMIN_PASSWORD
-          value: "yourpassword"
         - name: GF_INSTALL_PLUGINS
-          value: "grafana-clock-panel,grafana-simple-json-datasource"
+          value: "https://github.com/performancecopilot/grafana-pcp/releases/download/v5.1.1/performancecopilot-pcp-app-5.1.1.zip;performancecopilot-pcp-app"
+        volumeMounts:
+        - name: grafana-data
+          mountPath: /var/lib/grafana
+      volumes: 
+      - name: grafana-data
+        persistentVolumeClaim:
+          claimName: glusterfs-grafana-pvc
 ---
 apiVersion: v1
 kind: Service
