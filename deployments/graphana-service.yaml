@@ -28,7 +28,7 @@ spec:
       volumes: 
       - name: grafana-data
         persistentVolumeClaim:
-          claimName: gv0-glusterfs-pvc
+          claimName: vault-1-nfs-pvc
 ---
 apiVersion: v1
 kind: Service
