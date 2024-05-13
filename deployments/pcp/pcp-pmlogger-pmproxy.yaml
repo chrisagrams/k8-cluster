@@ -27,6 +27,7 @@ spec:
   ports:
   - port: 44322
     targetPort: 44322
+  type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment
