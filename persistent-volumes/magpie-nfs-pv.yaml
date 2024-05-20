@@ -1,87 +1,68 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: magpie-storage-class
+  name: pachyderm-loki-storage-class
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: Immediate
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: magpie-etcd-pv
+  name: magpie-nfs-pv-pachyderm-loki
 spec:
   capacity:
-    storage: 50Gi
-  accessModes:
-    - ReadWriteMany
-  nfs:
-    path: /mnt/pixiu/k8/pachyderm/etcd
-    server: magpie.rack-1.gaolab
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: magpie-storage-class
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: magpie-etcd-pvc
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 50Gi
-  storageClassName: magpie-storage-class
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: magpie-loki-pv
-spec:
-  capacity:
-    storage: 20Gi
+    storage: 10Gi
   accessModes:
     - ReadWriteMany
   nfs:
     path: /mnt/pixiu/k8/pachyderm/loki
     server: magpie.rack-1.gaolab
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: magpie-storage-class
+  storageClassName: pachyderm-loki-storage-class
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
+
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
-  name: magpie-loki-pvc
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 20Gi
-  storageClassName: magpie-storage-class
+  name: pachyderm-postgres-storage-class
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: Immediate
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: magpie-postgres-pv
+  name: magpie-nfs-pv-pachyderm-postgres
 spec:
   capacity:
-    storage: 30Gi
+    storage: 10Gi
   accessModes:
     - ReadWriteMany
   nfs:
     path: /mnt/pixiu/k8/pachyderm/postgres
     server: magpie.rack-1.gaolab
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: magpie-storage-class
+  storageClassName: pachyderm-postgres-storage-class
+---
+
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: pachyderm-etcd-storage-class
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: Immediate
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: PersistentVolume
 metadata:
-  name: magpie-postgres-pvc
+  name: magpie-nfs-pv-etcd-postgres
 spec:
+  capacity:
+    storage: 10Gi
   accessModes:
     - ReadWriteMany
-  resources:
-    requests:
-      storage: 30Gi
-  storageClassName: magpie-storage-class
+  nfs:
+    path: /mnt/pixiu/k8/pachyderm/etcd
+    server: magpie.rack-1.gaolab
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: pachyderm-etcd-storage-class
+---
