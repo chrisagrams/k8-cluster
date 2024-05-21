@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: pcp-pmlogger-pmproxy
-        image: chrisagrams/pcp-pmlogger-pmproxy
+        image: chrisagrams/pcp-pmlogger-pmproxy:lmsensors
         args: ["192.168.203.0/24"]
 ---
 apiVersion: v1
